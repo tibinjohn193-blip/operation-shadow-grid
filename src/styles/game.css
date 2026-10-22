@@ -1,0 +1,15 @@
+/* The original game set `display:flex` directly on <body> so the sidebar and
+   main-container sat side by side. React mounts everything into a single
+   #root div inside <body>, so we recreate that same flex behavior one level
+   down via .dashboard-shell — the original .sidebar / .main-container rules
+   are untouched in theme.css. */
+#root {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.dashboard-shell {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}

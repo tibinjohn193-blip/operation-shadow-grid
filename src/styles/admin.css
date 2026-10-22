@@ -1,0 +1,304 @@
+/* ===== Operation Shadow Grid — Cinematic Admin Dashboard ===== */
+
+.admin-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #04060a;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+/* Layer 1: Matrix digital rain */
+.admin-matrix-rain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.55;
+}
+
+/* Layer 2: Shadow agent silhouette */
+.admin-shadow-silhouette {
+  position: absolute;
+  bottom: 0;
+  right: 4%;
+  width: 34vw;
+  max-width: 480px;
+  height: 90vh;
+  z-index: 1;
+  opacity: 0.5;
+  filter: blur(0.5px);
+  animation: shadowBreathe 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shadowBreathe {
+  0%, 100% { opacity: 0.38; transform: translateY(0px); }
+  50% { opacity: 0.55; transform: translateY(-6px); }
+}
+
+/* Layer 3: Rotating globe focused on India */
+.admin-globe-wrap {
+  position: absolute;
+  top: 8%;
+  left: 3%;
+  width: 360px;
+  height: 360px;
+  z-index: 1;
+  opacity: 0.85;
+  pointer-events: none;
+}
+.admin-globe-svg { width: 100%; height: 100%; }
+
+.admin-globe-meridian {
+  transform-origin: 200px 200px;
+  animation: globeSpin 6s linear infinite;
+}
+.admin-globe-meridian-0 { animation-delay: 0s; }
+.admin-globe-meridian-1 { animation-delay: -1s; }
+.admin-globe-meridian-2 { animation-delay: -2s; }
+.admin-globe-meridian-3 { animation-delay: -3s; }
+.admin-globe-meridian-4 { animation-delay: -4s; }
+.admin-globe-meridian-5 { animation-delay: -5s; }
+
+/* Each meridian squashes to a sliver and back, simulating a vertical great
+   circle sweeping around a sphere as it rotates on its axis. */
+@keyframes globeSpin {
+  0%   { transform: scaleX(1); }
+  25%  { transform: scaleX(0.05); }
+  50%  { transform: scaleX(1); }
+  75%  { transform: scaleX(0.05); }
+  100% { transform: scaleX(1); }
+}
+
+.admin-globe-india-marker { animation: indiaPulse 2.4s ease-in-out infinite; }
+@keyframes indiaPulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+/* Vignette to keep the foreground legible over the busy background */
+.admin-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(ellipse at center, rgba(4,6,10,0.15) 0%, rgba(4,6,10,0.75) 75%, rgba(4,6,10,0.92) 100%);
+  pointer-events: none;
+}
+
+/* Foreground: glassmorphism leaderboard */
+.admin-foreground {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.admin-glass-panel {
+  width: 100%;
+  max-width: 960px;
+  max-height: 86vh;
+  background: rgba(21, 24, 30, 0.45);
+  border: 1px solid rgba(0, 229, 153, 0.22);
+  border-radius: 18px;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.03) inset;
+  padding: 28px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #f0f3f6;
+}
+
+.admin-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 16px;
+}
+.admin-panel-header h1 {
+  font-size: 22px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 0 18px rgba(0,229,153,0.35);
+  margin-bottom: 4px;
+}
+.admin-panel-header p {
+  font-size: 12.5px;
+  color: #8e98a8;
+  letter-spacing: 0.5px;
+}
+
+.admin-live-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #00e599;
+  background: rgba(0,229,153,0.08);
+  border: 1px solid rgba(0,229,153,0.35);
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+.admin-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00e599;
+  box-shadow: 0 0 8px #00e599;
+  animation: livePulse 1.4s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.admin-table-wrap {
+  overflow-y: auto;
+  max-height: 60vh;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.admin-table thead th {
+  text-align: left;
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #6b7686;
+  padding: 10px 12px;
+  position: sticky;
+  top: 0;
+  background: rgba(15, 18, 22, 0.85);
+  backdrop-filter: blur(6px);
+}
+.admin-table tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.2s ease;
+}
+.admin-table tbody tr:hover { background: rgba(0,229,153,0.05); }
+.admin-table td {
+  padding: 12px;
+  vertical-align: middle;
+}
+
+.admin-table-empty {
+  text-align: center;
+  color: #6b7686;
+  padding: 30px 0 !important;
+  font-size: 12.5px;
+  letter-spacing: 0.5px;
+}
+
+.admin-rank {
+  font-family: var(--font-mono, monospace);
+  color: #4d5766;
+  font-size: 12px;
+}
+.admin-agent-name {
+  font-weight: 700;
+  color: #fff;
+}
+
+.admin-phase-pill {
+  display: inline-block;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  color: #00e599;
+  background: rgba(0,229,153,0.1);
+  border: 1px solid rgba(0,229,153,0.3);
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+.admin-status {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+.admin-status-active {
+  color: #ffaa00;
+  background: rgba(255,170,0,0.1);
+  border: 1px solid rgba(255,170,0,0.3);
+}
+.admin-status-mission_complete {
+  color: #00e599;
+  background: rgba(0,229,153,0.1);
+  border: 1px solid rgba(0,229,153,0.3);
+}
+
+.admin-score-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 180px;
+}
+.admin-score-bar-bg {
+  flex-grow: 1;
+  height: 6px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+.admin-score-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00e599, #00ccff);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+.admin-score-val {
+  font-family: var(--font-mono, monospace);
+  font-size: 11.5px;
+  color: #d1d7e0;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .admin-shadow-silhouette { display: none; }
+  .admin-globe-wrap { width: 220px; height: 220px; top: 4%; left: 50%; transform: translateX(-50%); }
+  .admin-glass-panel { padding: 20px; }
+}
+
+/* Authenticated admin console additions */
+.admin-foreground-scroll { overflow-y: auto; align-items: flex-start; }
+.admin-console { max-width: 1240px; max-height: none; margin: auto; }
+.admin-auth-card { max-width: 520px; margin: auto; }
+.admin-login-form { display: grid; gap: 16px; }
+.admin-login-form label { display: grid; gap: 7px; color: #c9d5dc; font-size: 13px; letter-spacing: .04em; }
+.admin-login-form input { width: 100%; box-sizing: border-box; padding: 13px 14px; border-radius: 8px; border: 1px solid rgba(0,229,153,.28); color: #f0f3f6; background: rgba(0,0,0,.42); outline: none; }
+.admin-login-form input:focus { border-color: #00e599; box-shadow: 0 0 0 2px rgba(0,229,153,.12); }
+.admin-action { cursor: pointer; border: 1px solid rgba(0,229,153,.45); border-radius: 7px; background: rgba(0,229,153,.12); color: #8fffd2; padding: 11px 16px; font-weight: 700; }
+.admin-action:hover:not(:disabled) { background: rgba(0,229,153,.22); }
+.admin-action:disabled { opacity: .5; cursor: wait; }
+.admin-action-small { padding: 7px 10px; font-size: 11px; white-space: nowrap; }
+.admin-danger { border-color: rgba(255,100,100,.4); background: rgba(255,70,70,.1); color: #ffaaaa; }
+.admin-header-actions,.admin-row-actions { display: flex; align-items: center; gap: 8px; }
+.admin-note { color: #9aabb6; font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.admin-error { color: #ffb4b4; background: rgba(150,20,20,.2); border: 1px solid rgba(255,100,100,.35); border-radius: 8px; padding: 10px 12px; font-size: 13px; overflow-wrap: anywhere; }
+.admin-stat-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 10px; }
+.admin-stat { border: 1px solid rgba(0,229,153,.17); border-radius: 10px; background: rgba(0,0,0,.23); padding: 13px; display: grid; gap: 7px; }
+.admin-stat span { color: #9aabb6; font-size: 11px; }
+.admin-stat strong { color: #8fffd2; font-size: 24px; }
+.admin-section-title { display:flex; align-items:center; justify-content:space-between; gap: 12px; }
+.admin-section-title h2 { margin: 0 0 4px; font-size: 17px; }
+.admin-section-title p { margin: 0; color: #9aabb6; font-size: 12px; }
+.admin-subline { display:block; color:#8b9ca7; font-size:10px; margin-top:5px; }
+.admin-status-suspended { color:#ffb4b4; border-color:rgba(255,100,100,.3); }
+@media (max-width: 900px) { .admin-foreground { padding: 14px; } .admin-stat-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .admin-glass-panel { padding: 18px 14px; } .admin-table-wrap { overflow-x:auto; } .admin-table { min-width: 850px; } .admin-panel-header { gap: 12px; } .admin-panel-header h1 { font-size: 18px; } }
